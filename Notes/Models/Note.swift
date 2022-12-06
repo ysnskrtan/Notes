@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+struct Note: Hashable, Identifiable, Codable {
+    let id: UUID
+    var title: String
+    var content: String
+}
