@@ -32,4 +32,3 @@ struct EditNoteView_Previews: PreviewProvider {
         }
     }
 }
-

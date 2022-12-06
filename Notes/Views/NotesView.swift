@@ -21,7 +21,6 @@ struct NotesView: View {
                         tag: note.id,
                         selection: $viewModel.editingNote
                     )
-                    //NavigationLink(destination: EditNoteView(note: binding(for: note)), tag: note.id, selection: $viewModel.editingNote)
                 }
                 // The onDelete(perform:) modifier in SwiftUI enables the ability to delete a note from the list by swiping left on it and tapping “Delete”. The actual deletion is carried out by the handleDelete(_:) method from the NotesViewModel.
                 .onDelete(perform: viewModel.handleDelete(_:))
@@ -33,11 +32,12 @@ struct NotesView: View {
         }
         // MARK: - Persistence
         // Add your code here
-        
-        
-        
-        
-        
+        .onAppear {
+            try! viewModel.load()
+        }
+        .onChange(of: viewModel.notes) { _ in
+            try! viewModel.save()
+        }
     }
     
     /// Returns the given note as a binding. This is required because the `EditNoteView` requires a binding so that the note can be edited, and the SwiftUI `ForEach` element doesn’t provide a binding.
